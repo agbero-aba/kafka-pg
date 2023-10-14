@@ -17,18 +17,18 @@ public class KafkaProducerConfig {
   @Value("${spring.kafka.bootstrap-servers}")
   private String bootstrapServers;
 
-  public Map<String, Object> kafkaProducer() {
-    HashMap<String, Object> prop = new HashMap<>();
-    prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-    prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-    prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+  public Map<String, Object> producerConfig() {
+    HashMap<String, Object> configProps = new HashMap<>();
+    configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+    configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
-    return prop;
+    return configProps;
   }
 
   @Bean
   public ProducerFactory<String, String> producerFactory() {
-    return new DefaultKafkaProducerFactory<>(kafkaProducer());
+    return new DefaultKafkaProducerFactory<>(producerConfig());
   }
 
   @Bean
